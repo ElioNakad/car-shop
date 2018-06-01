@@ -1,3 +1,11 @@
+.car-image {
+  height: 90px;
+  width: 150px;
+}
+.button-remove {
+  background: transparent;
+  border: none;
+}
 .header {
   display: flex;
   flex-direction: column;
