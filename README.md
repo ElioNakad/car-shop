@@ -1,6 +1,6 @@
 # Car Shop
 
-This is a final project of the course Javascript Ninja which used among others:
+This is a final project of the course [Javascript Ninja](https://github.com/da2k/curso-javascript-ninja) which used among others:
 
 - Ajax
 - Closures
