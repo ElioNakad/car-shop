@@ -5,9 +5,19 @@
   var app = (function() {
     return {
       init : function() {               
-        this.loadInfo();        
-        this.getCars();        
+        this.loadInfo();               
         this.initEvents(); 
+        this.getCars(); 
+      },
+      loadInfo : function loadInfo() {       
+        var ajax = new XMLHttpRequest();
+        ajax.open('GET', '/company.json', true);
+        ajax.send();
+        ajax.addEventListener('readystatechange', this.getCompanyInfo, false);
+      },
+      initEvents : function initEvents() {                
+        const $formulario = $('form');
+        $formulario.on('submit', this.handleFormSubmit);                      
       },      
       getCars : function getCars() {
         var ajax = new XMLHttpRequest();
@@ -15,13 +25,33 @@
         ajax.send();        
         ajax.addEventListener('readystatechange', this.getAllCars, false);
       },
+      removeCar : function removeCar(placa) {
+        var ajax = new XMLHttpRequest();
+        ajax.open('DELETE', 'http://localhost:3000/car', true);
+        ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        ajax.send('placa='+placa);
+        ajax.addEventListener('readystatechange', this.handleRemoveCar, false);        
+      },
+      getPlate : function getPlate(rowNumber) {
+        let $plateValue = $('tbody').get().children[rowNumber].childNodes[4].innerHTML;        
+        return $plateValue;
+      },
+      handleRemoveCar : function handleRemoveCar() {                    
+        if (!app.isReady.call(this))
+          return;        
+        let $tbody = $('tbody').get();
+        alert('Carro removido com sucesso!');
+        $tbody.innerHTML = '';
+        app.getCars();
+      },
       getAllCars : function getAllCars() {  
         if (!app.isReady.call(this))
           return;                           
           let data = JSON.parse(this.responseText); 
           let $tbody = $('tbody').get();          
-          let $fragment = document.createDocumentFragment();       
-          for(let item in data) {                 
+          let $fragment = document.createDocumentFragment();   
+          var counter = 0;    
+          for(let item in data) {                                                    
             let $tr = document.createElement('tr');
             let $image = document.createElement('img');
             let $tdImage = document.createElement('td');
@@ -35,12 +65,12 @@
 
             $imgRemove.setAttribute('src', '../img/button-remove.png');
             $imgRemove.classList.add('button-remove');          
-            $imgRemove.addEventListener('click', function(){        
-              let elem = document.getElementById($tr.id);
-              elem.parentNode.removeChild(elem);
-            } ,false);
+            $imgRemove.addEventListener('click', function(){              
+              app.removeCar(app.getPlate(this.id));
+            }, false);
             $tdRemove.appendChild($imgRemove);
-            $tr.id = 'row_'+app.getCurrentRowNumber();                                                
+            $imgRemove.id = counter;
+            $tr.id = 'row_'+counter;                                                            
             $tdImage.appendChild($image);
             $image.classList.add('car-image');
             $image.setAttribute('src', data[item].imagem);
@@ -57,17 +87,11 @@
             $tr.appendChild($tdPlaca);
             $tr.appendChild($tdCor);
             $tr.appendChild($tdRemove);            
-            $fragment.appendChild($tr);                                                       
+            $fragment.appendChild($tr);
+            counter++;                                                        
           }        
-          return $tbody.appendChild($fragment);
-                
+          return $tbody.appendChild($fragment);                
       },            
-      loadInfo : function loadInfo() {       
-        var ajax = new XMLHttpRequest();
-        ajax.open('GET', '/company.json', true);
-        ajax.send();
-        ajax.addEventListener('readystatechange', this.getCompanyInfo, false);
-      },
       getCompanyInfo : function getCompanyInfo() {
         if (!app.isReady.call(this))
           return;
@@ -79,10 +103,6 @@
       },
       isReady : function isReady() {
         return this.readyState === 4 && this.status === 200;
-      },
-      initEvents : function initEvents() {                
-        const $formulario = $('form');
-        $formulario.on('submit', this.handleFormSubmit);                           
       },
       handleFormSubmit : function handleFormSubmit(e) {       
         e.preventDefault();                 
@@ -102,9 +122,6 @@
             app.getCars();                                                                                                                                         
           }        
         }, false);        
-      },
-      getCurrentRowNumber : function getCurrentRowNumber() {
-        return $('tbody').get().children.length+1;
       },
       getCarQuery : function getCarQuery() {  
         let imgValue = $('[data-js="input-imagem"]').get().value;

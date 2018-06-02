@@ -23,6 +23,16 @@ router.get('/', function(req, res) {  // /car (get)
   res.json(data);
 });
 
+router.delete('/', function(req, res) {
+  var placa = req.body.placa;
+
+  data = data.filter(function(car) {
+    return car.placa !== placa;
+  });
+  console.log('NewData => ', data);
+  res.json(data);
+});
+
 router.post('/', function(req, res) { // /car (post)
   var imagem = req.body.image;
   var marca = req.body.marca;
