@@ -19,7 +19,7 @@ function getRegexOperations(oper) {
   }
 }
 
-router.get('/', function(req, res) {  // /car (get)
+router.get('/', function(req, res) {
   res.json(data);
 });
 
@@ -28,8 +28,7 @@ router.delete('/', function(req, res) {
 
   data = data.filter(function(car) {
     return car.placa !== placa;
-  });
-  console.log('NewData => ', data);
+  });  
   res.json(data);
 });
 
@@ -61,5 +60,4 @@ router.post('/', function(req, res) { // /car (post)
   } 
   return res.json({msg : "Carro com a placa " + placa + " já cadastrado!"}); 
 });
-
 module.exports = router;
