@@ -7,7 +7,7 @@ const COMPONENTS = (function() {
         createTable : function createTable(data, $tbody, app) {
             data = JSON.parse(data);
             const $fragment = document.createDocumentFragment(); 
-            let counter = 0;
+            let counter = 0;            
             for(const item in data) {
                 let $tr = document.createElement('tr');
                 let $image = document.createElement('img');
@@ -26,7 +26,7 @@ const COMPONENTS = (function() {
                 }, false);
                 $tdRemove.appendChild($imgRemove);
                 $imgRemove.id = counter;
-                $tr.id = 'row_'+counter;                                                            
+                $tr.id = 'row_'+counter;                                               
                 $tdImage.appendChild($image);
                 $image.classList.add('car-image');
                 $image.setAttribute('src', data[item].imagem);
