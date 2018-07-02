@@ -8,7 +8,7 @@
       init : function() {                 
         this.loadInfo();               
         this.initEvents(); 
-        this.refreshData();
+        this.refreshData();        
       },
       loadInfo : function loadInfo() {  
         const URL =  "../company.json";

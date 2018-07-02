@@ -6,66 +6,73 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Car Shop</title>
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
 </head>
 <body>
-<div class="content">
+<div class="container-fluid">
   <div class="header">
       <h2 data-js="company-name"></h2>
       <h3 data-js="company-phone"></h3>
   </div>
 
-  <form action="/" method="post" class="form-data">
-    <div class="row">
+  <div id="div_form">
+  <form action="/" method="post" class="w-75 flex-column">
+    <div class="form-group row">
       <label for="imagem">Imagem</label>
-      <input type="text" data-js="input-imagem" name="url" placeholder="Informe uma URL de imagem válida..."
-      value="https://www.olx.com.br/tabela-fipe-carros/resources/img/carros.png" required>
+      <input class="form-control" type="text" data-js="input-imagem" name="url" placeholder="https://www.olx.com.br/tabela-fipe-carros/resources/img/carros.png" required>
     </div>
 
-    <div class="row">
+    <div class="form-group row">
       <label for="marca">Marca</label>
-      <input type="text" data-js="input-marca" id="marca" placeholder="Informe uma marca de carro..." value="VW" required>
+      <input class="form-control" type="text" data-js="input-marca" id="marca" placeholder="Volkswagen" required>
     </div>
 
-    <div class="row">
+    <div class="form-group row">
       <label for="modelo">Modelo</label>
-      <input type="text" data-js="input-modelo" placeholder="Informe um modelo de carro..." value="Gol" required>
+      <input class="form-control" type="text" data-js="input-modelo" placeholder="Gol" required>
     </div>
 
-    <div class="row">
+    <div class="form-group row">
       <label for="ano">Ano</label>
-      <input type="text" data-js="input-ano" name="ano" placeholder="Informe um ano válido. Ex.: 2017" value="2018" required>
+      <input class="form-control" type="text" data-js="input-ano" name="ano" placeholder="2018" required>
     </div>
 
-    <div class="row">
+    <div class="form-group row">
       <label for="placa">Placa</label>
-      <input type="text" data-js="input-placa" name="placa" placeholder="Informe uma placa válida. Ex.: ABC-1234"
-      value="ABC-1233"  required>
+      <input class="form-control" type="text" data-js="input-placa" name="placa" placeholder="ABC-1233"  required>
     </div>
 
-    <div class="row">
+    <div class="form-group row">
       <label for="cor">Cor</label>
-      <input type="text" data-js="input-cor" placeholder="Informe uma cor..." value="Branca" required>
+      <input class="form-control" type="text" data-js="input-cor" placeholder="Branca" required>
     </div>
 
-    <div class="row">
-        <label for=""></label>
-      <input type="submit" class="btn-cadastrar" data-js="btn-cadastrar">
+    <div class="w-100 form-group row">
+      <label for=""></label>    
+      <input class="btn btn-lg btn-primary" type="submit" data-js="btn-cadastrar" value="Cadastrar">
     </div>
   </form>
-  <br/><br/>
-  <table class="tabela-carros" data-js="tabela-carros">
+</div>
+  <div class="mt-5">
+    <h3 class="text-center">À venda</h3>
+  <table class="table table-striped mt-3" data-js="tabela-carros">
     <thead>
-        <th>Imagem</th>
-        <th>Marca</th>
-        <th>Modelo</th>
-        <th>Ano</th>
-        <th>Placa</th>
-        <th>Cor</th>
-        <th width="100px">Remove</th>
+        <tr>
+          <th scope="col">Imagem</th>
+          <th scope="col">Marca</th>
+          <th scope="col">Modelo</th>
+          <th scope="col">Ano</th>
+          <th scope="col">Placa</th>
+          <th scope="col">Cor</th>
+          <th scope="col">Remove</th>
+      </tr>
     </thead>
     <tbody data-js="tbody"></tbody>
   </table>
 </div>
+</div>
+
   <script src="js/ajax.js"></script>
   <script src="js/components.js"></script>
   <script src="js/dom.js"></script>
