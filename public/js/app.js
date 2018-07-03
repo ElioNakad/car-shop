@@ -5,12 +5,12 @@
   var app = (function() {
     const $tbody = $('tbody').get();
     return {
-      init : function() {                 
+      init() {                 
         this.loadInfo();               
         this.initEvents(); 
         this.refreshData();        
       },
-      loadInfo : function loadInfo() {  
+     loadInfo() {  
         const URL =  "../company.json";
         AJAX.get(URL, function(data) {
           data = JSON.parse(data);          
@@ -18,17 +18,17 @@
           $('[data-js="company-phone"]').get().textContent = data.phone;                  
         });     
       },
-      initEvents : function initEvents() {                
+       initEvents() {                
         const $formulario = $('form');
         $formulario.on('submit', this.handleFormSubmit);                      
       },      
-      getCars : function getCars() {
+      getCars() {
         const URL = 'http://localhost:3000/car';
         AJAX.get(URL, function(data) {
           COMPONENTS.createTable(data, $tbody, app);          
         });
       },
-      removeCar : function removeCar(placa) {
+      removeCar(placa) {
         const URL = 'http://localhost:3000/car';
         AJAX.remove(URL, placa, function(data){
           if (!data)
@@ -37,10 +37,10 @@
           app.refreshData();          
         });  
       },
-      getPlate : function getPlate(rowNumber) {
+      getPlate(rowNumber) {
         return $('tbody').get().children[rowNumber].childNodes[4].innerHTML;                
       },
-      handleFormSubmit : function handleFormSubmit(e) {   
+      handleFormSubmit(e) {   
         e.preventDefault(); 
         const URL = 'http://localhost:3000/car';
         AJAX.post(URL, app.getCarQuery(), function(data){            
@@ -52,7 +52,7 @@
             app.refreshData();
         });   
       },
-      getCarQuery : function getCarQuery() {  
+      getCarQuery() {  
         let imgValue = $('[data-js="input-imagem"]').get().value;
         let marcaValue = $('[data-js="input-marca"]').get().value;
         let modeloValue = $('[data-js="input-modelo"]').get().value;
@@ -61,7 +61,7 @@
         let corValue = $('[data-js="input-cor"]').get().value;        
         return 'image='+imgValue+'&marca='+marcaValue+'&modelo='+modeloValue+'&ano='+anoValue+'&placa='+placaValue+'&cor='+corValue;
       },
-      refreshData : function refreshData() {
+      refreshData() {
         $tbody.innerHTML = '';
         app.getCars();
       }
